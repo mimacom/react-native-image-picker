@@ -150,7 +150,10 @@ RCT_EXPORT_METHOD(launchImageLibrary:(NSDictionary *)options callback:(RCTRespon
                                     maxHeight:[self.options[@"maxHeight"] floatValue]];
     }
 
-    if ([fileType isEqualToString:@"jpg"]) {
+    if ([self.options[@"returnOriginal"] boolValue]) {
+        data = data;
+    }
+    else if ([fileType isEqualToString:@"jpg"]) {
         data = UIImageJPEGRepresentation(image, [self.options[@"quality"] floatValue]);
     }
     else if ([fileType isEqualToString:@"png"]) {

@@ -1,34 +1,40 @@
 export type Callback = (response: ImagePickerResponse) => any;
 
 export interface ImageLibraryOptions {
-  mediaType: MediaType;
-  maxWidth?: number;
-  maxHeight?: number;
-  quality?: PhotoQuality;
-  videoQuality?: AndroidVideoOptions | iOSVideoOptions;
   includeBase64?: boolean;
+  maxHeight?: number;
+  maxWidth?: number;
+  mediaType: MediaType;
+  quality?: PhotoQuality;
+  returnOriginal?: boolean; // return original image, without re-compression
+  videoQuality?: AndroidVideoOptions | iOSVideoOptions;
 }
 
 export interface CameraOptions extends ImageLibraryOptions {
+  cameraType?: CameraType;
   durationLimit?: number;
   saveToPhotos?: boolean;
-  cameraType?: CameraType;
 }
 
 export interface ImagePickerResponse {
+  base64?: string;
   didCancel?: boolean;
+  duration?: number;
   errorCode?: ErrorCode;
   errorMessage?: string;
-  base64?: string;
+  fileName?: string;
+  fileSize?: number;
+  height?: number;
+  type?: string; //TODO
   uri?: string;
   width?: number;
-  height?: number;
-  fileSize?: number;
-  type?: string; //TODO
-  fileName?: string;
-  duration?: number;
 }
 
+export type AndroidVideoOptions = 'low' | 'high';
+export type CameraType = 'back' | 'front';
+export type ErrorCode = 'camera_unavailable' | 'permission' | 'others';
+export type MediaType = 'photo' | 'video' | 'mixed';
+export type iOSVideoOptions = 'low' | 'medium' | 'high';
 export type PhotoQuality =
   | 0
   | 0.1
@@ -41,8 +47,3 @@ export type PhotoQuality =
   | 0.8
   | 0.9
   | 1;
-export type CameraType = 'back' | 'front';
-export type MediaType = 'photo' | 'video' | 'mixed';
-export type AndroidVideoOptions = 'low' | 'high';
-export type iOSVideoOptions = 'low' | 'medium' | 'high';
-export type ErrorCode = 'camera_unavailable' | 'permission' | 'others';

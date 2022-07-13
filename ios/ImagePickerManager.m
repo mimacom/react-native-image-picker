@@ -150,7 +150,7 @@ RCT_EXPORT_METHOD(launchImageLibrary:(NSDictionary *)options callback:(RCTRespon
                                     maxHeight:[self.options[@"maxHeight"] floatValue]];
     }
 
-    if ([self.options[@"returnOriginal"] boolValue]) {
+    if ((target != camera) && [self.options[@"returnOriginal"] boolValue]) {
         data = data;
     }
     else if ([fileType isEqualToString:@"jpg"]) {
